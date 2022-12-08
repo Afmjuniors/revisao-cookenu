@@ -12,18 +12,30 @@ import {
     useColorModeValue,
     Spinner,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from '../../hooks/useForm';
 import axios from "axios"
 import { BASE_URL } from '../../constants/url';
 import { tokenTxt } from '../../constants/texts';
 import { useNavigate } from 'react-router-dom';
 import {goToHomePage, goToSignUpPage} from "../../routes/coordinator"
+import { GlobalContext } from '../../contexts/GlobalContext';
 
 const LoginPage = () => {
-    const [isLoading, setIsLoading] = useState(false)
+    const context = useContext(GlobalContext)
+
     const navigate = useNavigate()
+
+    const [isLoading, setIsLoading] = useState(false)
     const [form, handleOnChangeForm] = useForm({ email: "", password: "" })
+
+
+    useEffect(() => {
+      if(context.isAuth){
+        goToHomePage(navigate)
+      }
+    })
+
 
     const login = async () => {
         try {
@@ -36,6 +48,7 @@ const LoginPage = () => {
                 `${BASE_URL}/user/login`, body)
             window.localStorage.setItem(tokenTxt, response.data.token)
             setIsLoading(false)
+            context.setIsAuth(true)
             goToHomePage(navigate)
         } catch (error) {
             console.log(error)
