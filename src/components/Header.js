@@ -10,7 +10,7 @@ const Header = () => {
     const navigate = useNavigate()
     const logout = () =>{
         window.localStorage.removeItem(tokenTxt)
-        context.setAuth(false)
+        context.setIsAuth(false)
         goToLoginPage(navigate)
     }
   return (

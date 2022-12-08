@@ -7,3 +7,6 @@ navigate("/signup")
 export const goToLoginPage = (navigate)=>{
 navigate("/login")
 }
+export const goToDeatailsPage = (navigate, recipeId) =>{
+    navigate(`/recipe/${recipeId}`)
+}

@@ -8,15 +8,21 @@ import {
     Image,
     ScaleFade,
   } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
+import { goToDeatailsPage } from '../../routes/coordinator';
   
+
   const IMAGE =
     'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
   
   const  RecipeCard = ({recipe}) => {
+    const navigate = useNavigate()
+
     return (
       <ScaleFade initialScale={0.9} in={true}>
       <Center py={12}>
-        <Box
+    
+        <Box onClick={()=>goToDeatailsPage(navigate,recipe.id)}
         cursor={"pointer"}
         _hover={{
                         transform: "scale(1.1)",
